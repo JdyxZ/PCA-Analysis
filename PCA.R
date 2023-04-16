@@ -6,7 +6,6 @@ install.packages("rgl")
 install.packages("mgcv")
 install.packages("nlme")
 install.packages("car", dependencies = TRUE)
-install.packages("ggplot2")
 library(factoextra)
 library(FactoMineR)
 library(stats)
@@ -38,8 +37,11 @@ summary(pca3d)
 var_prop <- pca3d$sdev^2/sum(pca3d$sdev^2)
 
 #Plotejat 3D del model PCA
-scatter3d(pca3d$ind$coord[,1], pca3d$ind$coord[,2], pca3d$ind$coord[,3],color = "blue",
-          pch = 19, cex = 1.5, xlab = "PC1", ylab = "PC2", zlab = "PC3")
+scatter3d(pca3d$ind$coord[,1], pca3d$ind$coord[,2], pca3d$ind$coord[,3], point.col = "blue",
+          pch = 16, cex = 1000, xlab = "PC1", ylab = "PC2", zlab = "PC3", surface = FALSE)
+
+#plot3d(pca3d$ind$coord[,1], pca3d$ind$coord[,2], pca3d$ind$coord[,3], col = "blue", 
+        #type = "s", size = 0.5, xlab = "PC1", ylab = "PC2", zlab = "PC3")
 
 cor_matrix <- cor(datos_nci)
 plot3d(cor_matrix, type = "s", size = 2)
@@ -54,10 +56,12 @@ x <- Pompeu_coords$coord[, 1]
 y <- Pompeu_coords$coord[, 2]
 z <- Pompeu_coords$coord[, 3]
 
-scatter3d(pca3d$ind$coord[,1], pca3d$ind$coord[,2], pca3d$ind$coord[,3],color = "blue",
-          pch = 19, cex = 1.5, xlab = "PC1", ylab = "PC2", zlab = "PC3")
+scatter3d(pca3d$ind$coord[,1], pca3d$ind$coord[,2], pca3d$ind$coord[,3],point.col = "blue",
+          pch = 19, cex = 1.5, xlab = "PC1", ylab = "PC2", zlab = "PC3", surface=FALSE)
 
 points3d(x, y, z, col = "red", pch = 19, cex = 1.5, xlab = "Eje X", zlab = "Eje Z")
+
+scatter3d(x, y, z, point.col = "blue", pch = 19, cex = 1.5, xlab = "Eje X", zlab = "Eje Z", surface=FALSE)
 
 #Plotejat de l'el?lipse al voltant del set de dades principal
 
