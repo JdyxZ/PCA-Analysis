@@ -3,32 +3,37 @@ install.packages("factoextra")
 install.packages("FactoMineR")
 install.packages("readxl")
 install.packages("rgl")
+install.packages("mgcv")
+install.packages("nlme")
+install.packages("car", dependencies = TRUE)
+install.packages("ggplot2")
 library(factoextra)
 library(FactoMineR)
 library(stats)
-library(car)
 library(carData)
+library(car)
 library(rgl)
 library(readxl)
+library(nlme)
+library(mgcv)
 
-#C?rrega del dataset de les dades del pis de refer?ncia - Parellada (A)
+#Càrrega del dataset de les dades del pis de refer?ncia - Parellada (A)
 Parellada <- read_excel("CASA_PARELLADAS.xlsx")
 datos_nci <- Parellada[2:19]
 
 #Escalat de dades de la matriu per a plotejar correctament el conjunt
 scaled_data <- scale(datos_nci)
 
-#Generaci? del model PCA en 2D i plotejat de gr?fics representatius
+#Generació del model PCA en 2D i plotejat de gràfics representatius
 pca2d <- PCA(datos_nci,ncp=5,graph=FALSE)
-fviz_pca_var(pca, col.var = "contrib") # Scree plot
-fviz_pca_biplot(pca, col.var = "contrib") # Biplot
+fviz_pca_var(pca2d, col.var = "contrib") # Scree plot
+fviz_pca_biplot(pca2d, col.var = "contrib") # Biplot
 
-#Generaci? del model PCA per plotejat 3D
-scaled_data <- scale(datos_nci)
+#Generació del model PCA per plotejat 3D
 rotated_data <- prcomp(scaled_data, center=TRUE, scale.=TRUE)$x
 pca3d <- PCA(rotated_data,ncp=3,graph=FALSE)
 
-#Dades i grafics interessants sobre la vari?ncia i desviaci? est?ndard de les diferents variables
+#Dades i gràfics interessants sobre la variancia i desviació estàndard de les diferents variables
 summary(pca3d)
 var_prop <- pca3d$sdev^2/sum(pca3d$sdev^2)
 
