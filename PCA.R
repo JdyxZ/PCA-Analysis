@@ -1,4 +1,4 @@
-#Prec?rrega de llibreries i paquets necessaris pel processat de dades i l'estudi PCA
+#Precàrrega de llibreries i paquets necessaris pel processat de dades i l'estudi PCA
 install.packages("factoextra")
 install.packages("FactoMineR")
 install.packages("readxl")
@@ -6,13 +6,9 @@ install.packages("rgl")
 library(factoextra)
 library(FactoMineR)
 library(stats)
-library("readxl")
 library(car)
 library(carData)
 library(rgl)
-library("rgl")
-library("nlme")
-library("mgcv")
 library(readxl)
 
 #C?rrega del dataset de les dades del pis de refer?ncia - Parellada (A)
