@@ -34,11 +34,19 @@ pca3d <- PCA(rotated_data,ncp=3,graph=FALSE)
 
 #Dades i gràfics interessants sobre la variancia i desviació estàndard de les diferents variables
 summary(pca3d)
-var_prop <- pca3d$sdev^2/sum(pca3d$sdev^2)
+eig.val <- get_eigenvalue(pca3d)
+fviz_eig(pca3d, addlabels = TRUE, ylim = c(0, 20))
+
+var <- get_pca_var(pca3d)
+library("corrplot")
+corrplot(var$contrib, is.corr=FALSE)
+
+# Contributions of variables to PC1
+fviz_contrib(pca3d, choice = "var", axes = 1, top = 10)
 
 #Plotejat 3D del model PCA
-scatter3d(pca3d$ind$coord[,1], pca3d$ind$coord[,2], pca3d$ind$coord[,3], point.col = "blue",
-          pch = 16, cex = 1000, xlab = "PC1", ylab = "PC2", zlab = "PC3", surface = FALSE)
+scatter3d(pca3d$ind$coord[,1], pca3d$ind$coord[,2], pca3d$ind$coord[,3], point.col = "steelblue",
+          pch = 16, cex = 1000, xlab = "PC1", ylab = "PC2", zlab = "PC3", surface = FALSE, ellipsoid = TRUE)
 
 #plot3d(pca3d$ind$coord[,1], pca3d$ind$coord[,2], pca3d$ind$coord[,3], col = "blue", 
         #type = "s", size = 0.5, xlab = "PC1", ylab = "PC2", zlab = "PC3")
@@ -57,47 +65,9 @@ y <- Pompeu_coords$coord[, 2]
 z <- Pompeu_coords$coord[, 3]
 
 scatter3d(pca3d$ind$coord[,1], pca3d$ind$coord[,2], pca3d$ind$coord[,3],point.col = "blue",
-          pch = 19, cex = 1.5, xlab = "PC1", ylab = "PC2", zlab = "PC3", surface=FALSE)
+          pch = 19, cex = 1.5, xlab = "PC1", ylab = "PC2", zlab = "PC3", surface=FALSE,ellipsoid = TRUE)
 
-points3d(x, y, z, col = "red", pch = 19, cex = 1.5, xlab = "Eje X", zlab = "Eje Z")
+"points3d(x, y, z, col = "red", pch = 19, cex = 1.5, xlab = "Eje X", zlab = "Eje Z")"
 
-scatter3d(x, y, z, point.col = "blue", pch = 19, cex = 1.5, xlab = "Eje X", zlab = "Eje Z", surface=FALSE)
-
-#Plotejat de l'el?lipse al voltant del set de dades principal
-
-x <- pca$ind$coord[, 1]
-y <- pca$ind$coord[, 2]
-z <- pca$ind$coord[, 3]
-
-pcm <- prcomp(pca$ind$coord, center = TRUE, scale. = TRUE)
-x1<-pcm$center[1]
-y1<-pcm$center[2]
-z1<-pcm$center[3]
-
-datos<-data.frame(x,y,z,x1,y1,z1)
-
-# Ajustar l'el?lipse al voltant del conjunt de dades principals
-cov_matrix <- cov(datos[, c("x", "y", "z")])
-eigen_values <- eigen(cov_matrix)$values
-eigen_vectors <- eigen(cov_matrix)$vectors
-center <- colMeans(datos[, c("x1", "y1", "z1")])
-radius_x <- sqrt(qchisq(0.95, df = 3) * eigen_values[1])
-radius_y <- sqrt(qchisq(0.95, df = 3) * eigen_values[2])
-radius_z <- sqrt(qchisq(0.95, df = 3) * eigen_values[3])
-orientation <- eigen_vectors
-position <- center - c(radius_x, radius_y, radius_z) %*% t(orientation)
-
-# Plotejar l'el?lipse alvoltant del conjunt de dades principals
-open3d()
-
-# Verificar que x sigui una matriu
-if (!is.matrix(x)) {
-  stop("Error: x is not a matrix.")
-} else {
-  
-  # Continuar con el resto del c?digo
-}
-rgl::ellipse3d(center = center, radii = c(radius_x, radius_y, radius_z), 
-               orientation = orientation, position = position, color = "blue")
-points3d(puntos$x, puntos$y, puntos$z, col = "green")
+scatter3d(x, y, z, point.col = "green", pch = 19, cex = 1.5, xlab = "Eje X", zlab = "Eje Z", surface=FALSE)
 
