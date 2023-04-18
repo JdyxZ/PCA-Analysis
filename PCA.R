@@ -71,15 +71,18 @@ y <- c(pca3d$ind$coord[,2], Pompeu_coords$coord[, 2])
 z <- c(pca3d$ind$coord[,3], Pompeu_coords$coord[, 3])
 
 # Set a color for each type of values
-colors <- c(rep("blue", PCA_Length), rep("green", Predicted_Length))
+#colors <- c(rep("blue", PCA_Length), rep("green", Predicted_Length))
 
 # Create a grouping variable
 groups <- factor(c(rep("PCA Analysis", PCA_Length), rep("Predicted", Predicted_Length)))
 
+# Define custom colors for the groups
+group_colors <- c("blue", "green")
+
 # Plot values
-scatter3d(x, y, z, groups = groups, point.col = colors, sphere.size = 1.7,
-          xlab = "PC1", ylab = "PC2", zlab = "PC3", surface=FALSE)
+scatter3d(x, y, z, groups=groups, point.col = colors, sphere.size = 1.7,
+          xlab = "PC1", ylab = "PC2", zlab = "PC3", surface=FALSE, ellipsoid = TRUE)
 
 # Add legend
-legend3d("topright", legend = c("PCA Analysis", "Predicted"), col = c("blue", "green"), pch = 16)
+#legend3d("topright", legend = c("PCA Analysis", "Predicted"), col = c("blue", "green"), pch = 16)
 
