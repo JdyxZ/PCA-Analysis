@@ -25,12 +25,13 @@ library(scatterplot3d)
 # Load the dataset of the reference home
 Parellada <- read_excel("CASA_PARELLADA_PCA.XLSX")
 datos_nci <- Parellada[2:17]
+mean.nci <- colMeans(datos_nci)
+std.nci <- apply(datos_nci,2,sd)
 
 # Scale dataset in order to plot properly
-scaled_data <- scale(datos_nci)
+scaled_data <- scale(datos_nci, center=mean.nci, scale=std.nci)
 
 # Create the PCA model
-#rotated_data <- prcomp(scaled_data, center=TRUE, scale=TRUE)#
 pca3d <- PCA(scaled_data,ncp=3,graph=TRUE)
 
 # Get some useful data from the PCA model
@@ -75,14 +76,14 @@ Hospi<- read_excel(path = "HOSPITALET_DE_LLOBREGAT_PCA.xlsx")
 datos_Hospi<- Hospi[,2:17]
 
 # Scale dataset in order to plot properly
-scaled_Pompeu <- scale(datos_Pompeu)
-scaled_Montigala <- scale(datos_Montigala)
-scaled_Nil <- scale(datos_Nil)
-scaled_Pitagoras <- scale(datos_Pitagoras)
-scaled_Junta <- scale(datos_Junta)
-scaled_Erasme <- scale(datos_Erasme)
-scaled_Manso <- scale(datos_Manso)
-scaled_Hospi <- scale(datos_Hospi)
+scaled_Pompeu <- scale(datos_Pompeu,center=mean.nci, scale=std.nci)
+scaled_Montigala <- scale(datos_Montigala, center=mean.nci, scale=std.nci)
+scaled_Nil <- scale(datos_Nil, center=mean.nci, scale=std.nci)
+scaled_Pitagoras <- scale(datos_Pitagoras, center=mean.nci, scale=std.nci)
+scaled_Junta <- scale(datos_Junta, center=mean.nci, scale=std.nci)
+scaled_Erasme <- scale(datos_Erasme, center=mean.nci, scale=std.nci)
+scaled_Manso <- scale(datos_Manso, center=mean.nci, scale=std.nci)
+scaled_Hospi <- scale(datos_Hospi, center=mean.nci, scale=std.nci)
 
 # Make a prediction based on the PCA model
 Pompeu_coords <- predict(pca3d, scaled_Pompeu)
@@ -136,7 +137,10 @@ Hospi_z <- Hospi_coords$coord[, 3]
 
 # Plot PCA Analysis data
 plot3d(PCA_x, PCA_y, PCA_z, col = "purple", 
-       type = "s", size = 0.5, xlab = "PC1", ylab = "PC2", zlab = "PC3", main="3D Scatter Plot")
+       type = "s", size = 0.5, xlab = "PC1", ylab = "PC2", zlab = "PC3", main="3D Scatter Plot",xlim = c(-25, 5), ylim = c(-10, 8),zlim = c(-20,10))
+
+# Plot the condicende region
+shade3d(ellipsoid, col = "blue", alpha = 0.5)
 
 # Plot Prediction Model data
 plot3d(Pompeu_x, Pompeu_y, Pompeu_z, col = "yellow", 
@@ -163,9 +167,6 @@ plot3d(Pitagoras_x, Pitagoras_y, Pitagoras_z, col = "green",
 plot3d(Hospi_x, Hospi_y, Hospi_z, col = "brown", 
        type = "s", size = 0.5, add=TRUE)
 
-# Plot the condicende region
-shade3d(ellipsoid, col = "blue", alpha = 0.5)
-
 #Add legend
 legend3d("right", legend = c("Parellada", "Pompeu","Junta","Erasme","Manso","Montigalà","Nil","Pitàgores","Hospi"), col = c("purple", "yellow","blue","black","pink","red","orange","green","brown"), pch = 16)
 
@@ -189,6 +190,36 @@ plot3d(cor_matrix, type = "s", size = 2)
 # Contributions of variables to PC1
 fviz_contrib(pca3d, choice = "var", axes = 1, top = 10)
 
+#Mahalanobis distance
+PCA_mahalanobis <- pca3d$ind$coord
+Pompeu_mahalanobis <- Pompeu_coords$coord
+Erasme_mahalanobis <- Erasme_coords$coord
+
+# Calculate covariance matrix and inverse
+cov_mat <- cov(PCA_mahalanobis)
+cov_mat_inv <- solve(cov_mat)
+
+# Calculate Mahalanobis distance between the first observation of data1 and data2
+mah_dist_Pompeu <- mahalanobis(PCA_mahalanobis[1,], colMeans(Pompeu_mahalanobis), cov_mat_inv)
+mah_dist_Pompeu
+
+mah_dist_Erasme <- mahalanobis(PCA_mahalanobis[1,], colMeans(Erasme_mahalanobis), cov_mat_inv)
+mah_dist_Erasme
+
+# Volume of data sets
+# Calculate the convex hull and volume 
+install.packages("geometry")
+library(geometry)
+
+ch_Pompeu <- convhulln(Pompeu_coords$coord, output.options = TRUE) 
+ch_Erasme <- convhulln(Erasme_coords$coord, output.options = TRUE) 
+
+volume_Pompeu <- ch_Pompeu$vol
+volume_Erasme <- ch_Erasme$vol
+
+# Print the volume
+print(volume_Pompeu)
+print(volume_Erasme)
 
 
 
