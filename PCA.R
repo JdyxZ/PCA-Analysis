@@ -167,17 +167,17 @@ plot3d(Pitagoras_x, Pitagoras_y, Pitagoras_z, col = "green",
 plot3d(Hospi_x, Hospi_y, Hospi_z, col = "brown", 
        type = "s", size = 0.5, add=TRUE)
 
-#Add legend
+# Add legend
 legend3d("right", legend = c("Parellada", "Pompeu","Junta","Erasme","Manso","Montigalà","Nil","Pitàgores","Hospi"), col = c("purple", "yellow","blue","black","pink","red","orange","green","brown"), pch = 16)
 
-# Generació del model PCA en 2D i plotejat de gràfics representatius
+# 2D PCA model generation and plotting of different representative graphs
 pca2d <- PCA(scaled_data,ncp=5,graph=FALSE)
 fviz_pca_var(pca2d, col.var = "contrib") # Scree plot
 fviz_pca_biplot(pca2d, col.var = "contrib") # Biplot
 cor_matrix <- cor(scaled_data)
-corrplot(cor_matrix, method = "color")
+corrplot(cor_matrix, method = "color") # Correlation variables matrix
 
-# Dades i gràfics interessants sobre la variancia i desviació estàndard de les diferents variables
+# Interesting data about 3D PCA model and graphs abaout variance and standard deviation of the different variables
 summary(pca3d)
 
 eig.val <- get_eigenvalue(pca3d)
@@ -187,13 +187,20 @@ var <- get_pca_var(pca3d)
 corrplot(var$contrib, is.corr=FALSE)
 plot3d(cor_matrix, type = "s", size = 2)
 
-# Contributions of variables to PC1
+# Contributions of variables to PC1 and PC2
 fviz_contrib(pca3d, choice = "var", axes = 1, top = 10)
+fviz_contrib(pca3d, choice = "var", axes = 2, top = 10)
 
-#Mahalanobis distance
+# Mahalanobis distance
 PCA_mahalanobis <- pca3d$ind$coord
 Pompeu_mahalanobis <- Pompeu_coords$coord
+Junta_mahalanobis <- Junta_coords$coord
 Erasme_mahalanobis <- Erasme_coords$coord
+Manso_mahalanobis <- Manso_coords$coord
+Montigala_mahalanobis <- Montigala_coords$coord
+Nil_mahalanobis <- Nil_coords$coord
+Pitagores_mahalanobis <- Pitagores_coords$coord
+Hospi_mahalanobis <- Hospi_coords$coord
 
 # Calculate covariance matrix and inverse
 cov_mat <- cov(PCA_mahalanobis)
@@ -203,8 +210,26 @@ cov_mat_inv <- solve(cov_mat)
 mah_dist_Pompeu <- mahalanobis(PCA_mahalanobis[1,], colMeans(Pompeu_mahalanobis), cov_mat_inv)
 mah_dist_Pompeu
 
+mah_dist_Junta <- mahalanobis(PCA_mahalanobis[1,], colMeans(Junta_mahalanobis), cov_mat_inv)
+mah_dist_Junta
+
 mah_dist_Erasme <- mahalanobis(PCA_mahalanobis[1,], colMeans(Erasme_mahalanobis), cov_mat_inv)
 mah_dist_Erasme
+
+mah_dist_Manso <- mahalanobis(PCA_mahalanobis[1,], colMeans(Manso_mahalanobis), cov_mat_inv)
+mah_dist_Manso
+
+mah_dist_Montigala <- mahalanobis(PCA_mahalanobis[1,], colMeans(Montigala_mahalanobis), cov_mat_inv)
+mah_dist_Montigala
+
+mah_dist_Nil <- mahalanobis(PCA_mahalanobis[1,], colMeans(Nil_mahalanobis), cov_mat_inv)
+mah_dist_Nil
+
+mah_dist_Pitagores <- mahalanobis(PCA_mahalanobis[1,], colMeans(Pitagores_mahalanobis), cov_mat_inv)
+mah_dist_Pitagores
+
+mah_dist_Hospi <- mahalanobis(PCA_mahalanobis[1,], colMeans(Hospi_mahalanobis), cov_mat_inv)
+mah_dist_Hospi
 
 # Volume of data sets
 # Calculate the convex hull and volume 
@@ -212,14 +237,32 @@ install.packages("geometry")
 library(geometry)
 
 ch_Pompeu <- convhulln(Pompeu_coords$coord, output.options = TRUE) 
+ch_Junta  <- convhulln(Junta_coords$coord, output.options = TRUE)
 ch_Erasme <- convhulln(Erasme_coords$coord, output.options = TRUE) 
+ch_Manso <- convhulln(Manso_coords$coord, output.options = TRUE)
+ch_Montigala <- convhulln(Montigala_coords$coord, output.options = TRUE)
+ch_Nil <- convhulln(Nil_coords$coord, output.options = TRUE)
+ch_Pitagores <- convhulln(Pitagores_coords$coord, output.options = TRUE)
+ch_Hospi <- convhulln(Hospi_coords$coord, output.options = TRUE)
 
 volume_Pompeu <- ch_Pompeu$vol
+volume_Junta <- ch_Junta$vol
 volume_Erasme <- ch_Erasme$vol
+volume_Manso <- ch_Manso$vol
+volume_Montigala <- ch_Montigala$vol
+volume_Nil <- ch_Nil$vol
+volume_Pitagores <- ch_Pitagores$vol
+volume_Hospi <- ch_Hospi$vol
 
 # Print the volume
 print(volume_Pompeu)
+print(volume_Junta)
 print(volume_Erasme)
+print(volume_Manso)
+print(volume_Montigala)
+print(volume_Nil)
+print(volume_Pitagores)
+print(volume_Hospi)
 
 
 
