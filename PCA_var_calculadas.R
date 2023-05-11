@@ -54,82 +54,86 @@ scatter3d(PCA_x, PCA_y, PCA_z, point.col = "steelblue",
 Pompeu<- read_excel(path = "CASA_PADRE_MARC_PCA.xlsx")
 datos_Pompeu<- Pompeu[-c(1,4,5,7,8,11,12,13,15,16)]
 
-#Montigala<- read_excel(path = "CASA_MARC_PCA.xlsx")
-#datos_Montigala<- Montigala[,2:17]
+Montigala<- read_excel(path = "CASA_MARC_PCA.xlsx")
+datos_Montigala<- Montigala[-c(1,4,5,7,8,11,12,13,15,16)]
 
-#Nil<- read_excel(path = "CASA_MARTA_PCA.xlsx")
-#datos_Nil<- Nil[,2:17]
+Nil<- read_excel(path = "CASA_MARTA_PCA.xlsx")
+datos_Nil<- Nil[-c(1,4,5,7,8,11,12,13,15,16)]
 
-#Pitagoras<- read_excel(path = "CASA_NATALIA_PCA.xlsx")
-#datos_Pitagoras<- Pitagoras[,2:17]
-#Junta<- read_excel(path = "CASA_JUNTA_COMERÇ_PCA.xlsx")
-#datos_Junta<- Junta[,2:17]
-#Erasme<- read_excel(path = "CASA_SANT_ERASME_PCA.xlsx")
-#datos_Erasme<- Erasme[,2:17]
-#Manso<- read_excel(path = "GENERAL_MANSO_PCA.xlsx")
-#datos_Manso<- Manso[,2:17]
-#Hospi<- read_excel(path = "HOSPITALET_DE_LLOBREGAT_PCA.xlsx")
-#datos_Hospi<- Hospi[,2:17]
+Pitagoras<- read_excel(path = "CASA_NATALIA_PCA.xlsx")
+datos_Pitagoras<- Pitagoras[-c(1,4,5,7,8,11,12,13,15,16)]
+
+Junta<- read_excel(path = "CASA_JUNTA_COMERÇ_PCA.xlsx")
+datos_Junta<- Junta[-c(1,4,5,7,8,11,12,13,15,16)]
+
+Erasme<- read_excel(path = "CASA_SANT_ERASME_PCA.xlsx")
+datos_Erasme<- Erasme[-c(1,4,5,7,8,11,12,13,15,16)]
+
+Manso<- read_excel(path = "GENERAL_MANSO_PCA.xlsx")
+datos_Manso<- Manso[-c(1,4,5,7,8,11,12,13,15,16)]
+
+Hospi<- read_excel(path = "HOSPITALET_DE_LLOBREGAT_PCA.xlsx")
+datos_Hospi<- Hospi[-c(1,4,5,7,8,11,12,13,15,16)]
 
 # Scale dataset in order to plot properly
 scaled_Pompeu <- scale(datos_Pompeu,center=mean.nci, scale=std.nci)
-#scaled_Montigala <- scale(datos_Montigala, center=mean.nci, scale=std.nci)
-#scaled_Nil <- scale(datos_Nil, center=mean.nci, scale=std.nci)
-#scaled_Pitagoras <- scale(datos_Pitagoras, center=mean.nci, scale=std.nci)
-#scaled_Junta <- scale(datos_Junta, center=mean.nci, scale=std.nci)
-#scaled_Erasme <- scale(datos_Erasme, center=mean.nci, scale=std.nci)
-#scaled_Manso <- scale(datos_Manso, center=mean.nci, scale=std.nci)
-#scaled_Hospi <- scale(datos_Hospi, center=mean.nci, scale=std.nci)
+scaled_Montigala <- scale(datos_Montigala, center=mean.nci, scale=std.nci)
+scaled_Nil <- scale(datos_Nil, center=mean.nci, scale=std.nci)
+scaled_Pitagoras <- scale(datos_Pitagoras, center=mean.nci, scale=std.nci)
+scaled_Junta <- scale(datos_Junta, center=mean.nci, scale=std.nci)
+scaled_Erasme <- scale(datos_Erasme, center=mean.nci, scale=std.nci)
+scaled_Manso <- scale(datos_Manso, center=mean.nci, scale=std.nci)
+scaled_Hospi <- scale(datos_Hospi, center=mean.nci, scale=std.nci)
 
 # Make a prediction based on the PCA model
 Pompeu_coords <- predict(pca3d, scaled_Pompeu)
 
-#Montigala_coords <- predict(pca3d, scaled_Montigala)
+Montigala_coords <- predict(pca3d, scaled_Montigala)
 
-#Nil_coords <- predict(pca3d, scaled_Nil)
+Nil_coords <- predict(pca3d, scaled_Nil)
 
-#Pitagoras_coords <- predict(pca3d, scaled_Pitagoras)
+Pitagoras_coords <- predict(pca3d, scaled_Pitagoras)
 
-#Junta_coords <- predict(pca3d, scaled_Junta)
+Junta_coords <- predict(pca3d, scaled_Junta)
 
-#Erasme_coords <- predict(pca3d, scaled_Erasme)
+Erasme_coords <- predict(pca3d, scaled_Erasme)
 
-#Manso_coords <- predict(pca3d, scaled_Manso)
+Manso_coords <- predict(pca3d, scaled_Manso)
 
-#Hospi_coords <- predict(pca3d, scaled_Hospi)
+Hospi_coords <- predict(pca3d, scaled_Hospi)
 
 # Set coordinates of the prediction into auxiliar variables
 Pompeu_x <- Pompeu_coords$coord[, 1]
 Pompeu_y <- Pompeu_coords$coord[, 2]
 Pompeu_z <- Pompeu_coords$coord[, 3]
 
-#Montigala_x <- Montigala_coords$coord[, 1]
-#Montigala_y <- Montigala_coords$coord[, 2]
-#Montigala_z <- Montigala_coords$coord[, 3]
+Montigala_x <- Montigala_coords$coord[, 1]
+Montigala_y <- Montigala_coords$coord[, 2]
+Montigala_z <- Montigala_coords$coord[, 3]
 
-#Nil_x <- Nil_coords$coord[, 1]
-#Nil_y <- Nil_coords$coord[, 2]
-#Nil_z <- Nil_coords$coord[, 3]
+Nil_x <- Nil_coords$coord[, 1]
+Nil_y <- Nil_coords$coord[, 2]
+Nil_z <- Nil_coords$coord[, 3]
 
-#Pitagoras_x <- Pitagoras_coords$coord[, 1]
-#Pitagoras_y <- Pitagoras_coords$coord[, 2]
-#Pitagoras_z <- Pitagoras_coords$coord[, 3]
+Pitagoras_x <- Pitagoras_coords$coord[, 1]
+Pitagoras_y <- Pitagoras_coords$coord[, 2]
+Pitagoras_z <- Pitagoras_coords$coord[, 3]
 
-#Junta_x <- Junta_coords$coord[, 1]
-#Junta_y <- Junta_coords$coord[, 2]
-#Junta_z <- Junta_coords$coord[, 3]
+Junta_x <- Junta_coords$coord[, 1]
+Junta_y <- Junta_coords$coord[, 2]
+Junta_z <- Junta_coords$coord[, 3]
 
-#Erasme_x <- Erasme_coords$coord[, 1]
-#Erasme_y <- Erasme_coords$coord[, 2]
-#Erasme_z <- Erasme_coords$coord[, 3]
+Erasme_x <- Erasme_coords$coord[, 1]
+Erasme_y <- Erasme_coords$coord[, 2]
+Erasme_z <- Erasme_coords$coord[, 3]
 
-#Manso_x <- Manso_coords$coord[, 1]
-#Manso_y <- Manso_coords$coord[, 2]
-#Manso_z <- Manso_coords$coord[, 3]
+Manso_x <- Manso_coords$coord[, 1]
+Manso_y <- Manso_coords$coord[, 2]
+Manso_z <- Manso_coords$coord[, 3]
 
-#Hospi_x <- Hospi_coords$coord[, 1]
-#Hospi_y <- Hospi_coords$coord[, 2]
-#Hospi_z <- Hospi_coords$coord[, 3]
+Hospi_x <- Hospi_coords$coord[, 1]
+Hospi_y <- Hospi_coords$coord[, 2]
+Hospi_z <- Hospi_coords$coord[, 3]
 
 # Plot PCA Analysis data
 plot3d(PCA_x, PCA_y, PCA_z, col = "purple", 
@@ -142,29 +146,29 @@ shade3d(ellipsoid, col = "blue", alpha = 0.5)
 plot3d(Pompeu_x, Pompeu_y, Pompeu_z, col = "yellow", 
        type = "s", size = 0.5, add=TRUE)
 
-#plot3d(Junta_x, Junta_y, Junta_z, col = "blue", 
-#type = "s", size = 0.5, add=TRUE)
+plot3d(Junta_x, Junta_y, Junta_z, col = "blue", 
+      type = "s", size = 0.5, add=TRUE)
 
-#plot3d(Erasme_x, Erasme_y, Erasme_z, col = "black", 
-#type = "s", size = 0.5, add=TRUE)
+plot3d(Erasme_x, Erasme_y, Erasme_z, col = "black", 
+      type = "s", size = 0.5, add=TRUE)
 
-#plot3d(Manso_x, Manso_y, Manso_z, col = "pink", 
-#type = "s", size = 0.5, add=TRUE)
+plot3d(Manso_x, Manso_y, Manso_z, col = "pink", 
+      type = "s", size = 0.5, add=TRUE)
 
-#plot3d(Montigala_x, Montigala_y, Montigala_z, col = "red", 
-#      type = "s", size = 0.5, add=TRUE)
+plot3d(Montigala_x, Montigala_y, Montigala_z, col = "red", 
+      type = "s", size = 0.5, add=TRUE)
 
-#plot3d(Nil_x, Nil_y, Nil_z, col = "orange", 
-#      type = "s", size = 0.5, add=TRUE)
+plot3d(Nil_x, Nil_y, Nil_z, col = "orange", 
+      type = "s", size = 0.5, add=TRUE)
 
-#plot3d(Pitagoras_x, Pitagoras_y, Pitagoras_z, col = "green", 
-#      type = "s", size = 0.5, add=TRUE)
+plot3d(Pitagoras_x, Pitagoras_y, Pitagoras_z, col = "green", 
+      type = "s", size = 0.5, add=TRUE)
 
-#plot3d(Hospi_x, Hospi_y, Hospi_z, col = "brown", 
-#      type = "s", size = 0.5, add=TRUE)
+plot3d(Hospi_x, Hospi_y, Hospi_z, col = "brown", 
+      type = "s", size = 0.5, add=TRUE)
 
 # Add legend
-#legend3d("right", legend = c("Parellada", "Pompeu","Junta","Erasme","Manso","Montigalà","Nil","Pitàgores","Hospi"), col = c("purple", "yellow","blue","black","pink","red","orange","green","brown"), pch = 16)
+legend3d("right", legend = c("Parellada", "Pompeu","Junta","Erasme","Manso","Montigalà","Nil","Pitàgores","Hospi"), col = c("purple", "yellow","blue","black","pink","red","orange","green","brown"), pch = 16)
 
 # 2D PCA model generation and plotting of different representative graphs
 pca2d <- PCA(scaled_data,ncp=5,graph=FALSE)
