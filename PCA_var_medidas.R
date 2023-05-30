@@ -81,8 +81,8 @@ datos_PeudelaCreu<- PeudelaCreu[-c(1,2,3,4,7,10,11,15,18)]
 SantBoi<- read_excel(path = "CASA_SANT_BOI_DE_LLOBREGAT_PCA.xlsx")
 datos_SantBoi<- SantBoi[-c(1,2,3,4,7,10,11,15,18)]
 
-SantRamon<- read_excel(path = "CASA_SANT_RAMON_PCA.xlsx")
-datos_SantRamon<- SantRamon[-c(1,2,3,4,7,10,11,15,18)]
+Carretes<- read_excel(path = "CASA_CARRETES_PCA.xlsx")
+datos_Carretes<- Carretes[-c(1,2,3,4,7,10,11,15,18)]
 
 # Scale dataset in order to plot properly
 scaled_Pompeu <- scale(datos_Pompeu,center=mean.nci, scale=std.nci)
@@ -95,7 +95,7 @@ scaled_Manso <- scale(datos_Manso, center=mean.nci, scale=std.nci)
 scaled_Hospi <- scale(datos_Hospi, center=mean.nci, scale=std.nci)
 scaled_PeudelaCreu <- scale(datos_PeudelaCreu, center=mean.nci, scale=std.nci)
 scaled_SantBoi <- scale(datos_SantBoi, center=mean.nci, scale=std.nci)
-scaled_SantRamon <- scale(datos_SantRamon, center=mean.nci, scale=std.nci)
+scaled_Carretes <- scale(datos_Carretes, center=mean.nci, scale=std.nci)
 
 # Make a prediction based on the PCA model
 Pompeu_coords <- predict(pca3d, scaled_Pompeu)
@@ -118,7 +118,7 @@ PeudelaCreu_coords <- predict(pca3d, scaled_PeudelaCreu)
 
 SantBoi_coords <- predict(pca3d, scaled_SantBoi)
 
-SantRamon_coords <- predict(pca3d, scaled_SantRamon)
+Carretes_coords <- predict(pca3d, scaled_Carretes)
 
 # Set coordinates of the prediction into auxiliar variables
 Pompeu_x <- Pompeu_coords$coord[, 1]
@@ -161,9 +161,9 @@ SantBoi_x <- SantBoi_coords$coord[, 1]
 SantBoi_y <- SantBoi_coords$coord[, 2]
 SantBoi_z <- SantBoi_coords$coord[, 3]
 
-SantRamon_x <- SantRamon_coords$coord[, 1]
-SantRamon_y <- SantRamon_coords$coord[, 2]
-SantRamon_z <- SantRamon_coords$coord[, 3]
+Carretes_x <- Carretes_coords$coord[, 1]
+Carretes_y <- Carretes_coords$coord[, 2]
+Carretes_z <- Carretes_coords$coord[, 3]
 
 # Plot PCA Analysis data
 plot3d(PCA_x, PCA_y, PCA_z, col = "purple", 
@@ -203,11 +203,11 @@ plot3d(PeudelaCreu_x, PeudelaCreu_y, PeudelaCreu_z, col = "lightgreen",
 plot3d(SantBoi_x, SantBoi_y, SantBoi_z, col = "cyan", 
        type = "s", size = 0.5, add=TRUE)
 
-plot3d(SantRamon_x, SantRamon_y, SantRamon_z, col = "lightblue", 
+plot3d(Carretes_x, Carretes_y, Carretes_z, col = "lightblue", 
        type = "s", size = 0.5, add=TRUE)
 
 # Add legend
-legend3d("right", legend = c("Parellada", "Pompeu","Junta","Erasme","Manso","Montigalà","Nil","Pitàgores","Hospi","Peu de la Creu","Sant Boi","Sant Ramon"), col = c("purple", "yellow","darkblue","black","pink","red","orange","darkgreen","brown","lightgreen","cyan","lightblue"), pch = 16)
+legend3d("right", legend = c("Parellada", "Pompeu","Junta","Erasme","Manso","Montigalà","Nil","Pitàgores","Hospi","Peu de la Creu","Sant Boi","Carretes"), col = c("purple", "yellow","darkblue","black","pink","red","orange","darkgreen","brown","lightgreen","cyan","lightblue"), pch = 16)
 
 # 2D PCA model generation and plotting of different representative graphs
 pca2d <- PCA(scaled_data,ncp=5,graph=FALSE)
@@ -238,11 +238,11 @@ Erasme_mahalanobis <- Erasme_coords$coord
 Manso_mahalanobis <- Manso_coords$coord
 Montigala_mahalanobis <- Montigala_coords$coord
 Nil_mahalanobis <- Nil_coords$coord
-Pitagores_mahalanobis <- Pitagores_coords$coord
+Pitagoras_mahalanobis <- Pitagoras_coords$coord
 Hospi_mahalanobis <- Hospi_coords$coord
 PeudelaCreu_mahalanobis <- PeudelaCreu_coords$coord
 SantBoi_mahalanobis <- SantBoi_coords$coord
-SantRamon_mahalanobis <- SantRamon_coords$coord
+Carretes_mahalanobis <- Carretes_coords$coord
 
 # Calculate covariance matrix and inverse
 cov_mat <- cov(PCA_mahalanobis)
@@ -267,8 +267,8 @@ mah_dist_Montigala
 mah_dist_Nil <- mahalanobis(PCA_mahalanobis[1,], colMeans(Nil_mahalanobis), cov_mat_inv)
 mah_dist_Nil
 
-mah_dist_Pitagores <- mahalanobis(PCA_mahalanobis[1,], colMeans(Pitagores_mahalanobis), cov_mat_inv)
-mah_dist_Pitagores
+mah_dist_Pitagoras <- mahalanobis(PCA_mahalanobis[1,], colMeans(Pitagoras_mahalanobis), cov_mat_inv)
+mah_dist_Pitagoras
 
 mah_dist_Hospi <- mahalanobis(PCA_mahalanobis[1,], colMeans(Hospi_mahalanobis), cov_mat_inv)
 mah_dist_Hospi
@@ -279,8 +279,8 @@ mah_dist_PeudelaCreu
 mah_dist_SantBoi <- mahalanobis(PCA_mahalanobis[1,], colMeans(SantBoi_mahalanobis), cov_mat_inv)
 mah_dist_SantBoi
 
-mah_dist_SantRamon <- mahalanobis(PCA_mahalanobis[1,], colMeans(SantRamon_mahalanobis), cov_mat_inv)
-mah_dist_SantRamon
+mah_dist_Carretes <- mahalanobis(PCA_mahalanobis[1,], colMeans(Carretes_mahalanobis), cov_mat_inv)
+mah_dist_Carretes
 
 # Volume of data sets
 # Calculate the convex hull and volume 
@@ -293,11 +293,11 @@ ch_Erasme <- convhulln(Erasme_coords$coord, output.options = TRUE)
 ch_Manso <- convhulln(Manso_coords$coord, output.options = TRUE)
 ch_Montigala <- convhulln(Montigala_coords$coord, output.options = TRUE)
 ch_Nil <- convhulln(Nil_coords$coord, output.options = TRUE)
-ch_Pitagores <- convhulln(Pitagores_coords$coord, output.options = TRUE)
+ch_Pitagoras <- convhulln(Pitagoras_coords$coord, output.options = TRUE)
 ch_Hospi <- convhulln(Hospi_coords$coord, output.options = TRUE)
 ch_PeudelaCreu <- convhulln(PeudelaCreu_coords$coord, output.options = TRUE)
 ch_SantBoi <- convhulln(SantBoi_coords$coord, output.options = TRUE)
-ch_SantRamon <- convhulln(SantRamon_coords$coord, output.options = TRUE)
+ch_Carretes <- convhulln(Carretes_coords$coord, output.options = TRUE)
 
 volume_Pompeu <- ch_Pompeu$vol
 volume_Junta <- ch_Junta$vol
@@ -305,11 +305,11 @@ volume_Erasme <- ch_Erasme$vol
 volume_Manso <- ch_Manso$vol
 volume_Montigala <- ch_Montigala$vol
 volume_Nil <- ch_Nil$vol
-volume_Pitagores <- ch_Pitagores$vol
+volume_Pitagoras <- ch_Pitagoras$vol
 volume_Hospi <- ch_Hospi$vol
 volume_PeudelaCreu <- ch_PeudelaCreu$vol
 volume_SantBoi <- ch_SantBoi$vol
-volume_SantRamon <- ch_SantRamon$vol
+volume_Carretes <- ch_Carretes$vol
 
 # Print the volume
 print(volume_Pompeu)
@@ -318,8 +318,8 @@ print(volume_Erasme)
 print(volume_Manso)
 print(volume_Montigala)
 print(volume_Nil)
-print(volume_Pitagores)
+print(volume_Pitagoras)
 print(volume_Hospi)
 print(volume_PeudelaCreu)
 print(volume_SantBoi)
-print(volume_SantRamon)
+print(volume_Carretes)
