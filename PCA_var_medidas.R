@@ -165,6 +165,37 @@ Carretes_x <- Carretes_coords$coord[, 1]
 Carretes_y <- Carretes_coords$coord[, 2]
 Carretes_z <- Carretes_coords$coord[, 3]
 
+# Mass center of different flats
+centroid_Parellada <- unname(colMeans(pca3d$var$coord))
+centroid_Pompeu <- unname(colMeans(Pompeu_coords$coord))
+centroid_Montigala <- unname(colMeans(Montigala_coords$coord))
+centroid_Nil <- unname(colMeans(Nil_coords$coord))
+centroid_Pitagoras <- unname(colMeans(Pitagoras_coords$coord))
+centroid_Junta <- unname(colMeans(Junta_coords$coord))
+centroid_Erasme <- unname(colMeans(Erasme_coords$coord))
+centroid_Manso <- unname(colMeans(Manso_coords$coord))
+centroid_Hospi <- unname(colMeans(Hospi_coords$coord))
+centroid_PeudelaCreu <- unname(colMeans(PeudelaCreu_coords$coord))
+centroid_SantBoi <- unname(colMeans(SantBoi_coords$coord))
+centroid_Carretes <- unname(colMeans(Carretes_coords$coord))
+
+plot3d(centroid_Parellada[1],centroid_Parellada[2],centroid_Parellada[3], xlim = c(-14, 14), ylim = c(-14, 14), zlim = c(-14, 14), col = "purple",type = "s", size = 2, xlab = "EIX X", ylab = "EIX Y", zlab = "EIX Z", main="CENTROIDES NUVOLS DE PUNTS")
+plot3d(centroid_Pompeu[1],centroid_Pompeu[2],centroid_Pompeu[3], xlim = c(-14, 14), ylim = c(-14, 14), zlim = c(-14, 14), col = "yellow",type = "s", size = 2, xlab = "EIX X", ylab = "EIX Y", zlab = "EIX Z", main="CENTROIDES NUVOLS DE PUNTS")
+plot3d(centroid_Montigala[1],centroid_Montigala[2],centroid_Montigala[3], xlim = c(-14, 14), ylim = c(-14, 14), zlim = c(-14, 14), col = "red",type = "s", size = 2, xlab = "EIX X", ylab = "EIX Y", zlab = "EIX Z", main="CENTROIDES NUVOLS DE PUNTS")
+plot3d(centroid_Nil[1],centroid_Nil[2],centroid_Nil[3], xlim = c(-14, 14), ylim = c(-14, 14), zlim = c(-14, 14), col = "orange",type = "s", size = 2, xlab = "EIX X", ylab = "EIX Y", zlab = "EIX Z", main="CENTROIDES NUVOLS DE PUNTS")
+plot3d(centroid_Pitagoras[1],centroid_Pitagoras[2],centroid_Pitagoras[3], xlim = c(-14, 14), ylim = c(-14, 14), zlim = c(-14, 14), col = "darkgreen",type = "s", size = 2, xlab = "EIX X", ylab = "EIX Y", zlab = "EIX Z", main="CENTROIDES NUVOLS DE PUNTS")
+plot3d(centroid_Junta[1],centroid_Junta[2],centroid_Junta[3], xlim = c(-14, 14), ylim = c(-14, 14), zlim = c(-14, 14), col = "darkblue",type = "s", size = 2, xlab = "EIX X", ylab = "EIX Y", zlab = "EIX Z", main="CENTROIDES NUVOLS DE PUNTS")
+plot3d(centroid_Erasme[1],centroid_Erasme[2],centroid_Erasme[3], xlim = c(-14, 14), ylim = c(-14, 14), zlim = c(-14, 14), col = "black",type = "s", size = 2, xlab = "EIX X", ylab = "EIX Y", zlab = "EIX Z", main="CENTROIDES NUVOLS DE PUNTS")
+plot3d(centroid_Manso[1],centroid_Manso[2],centroid_Manso[3], xlim = c(-14, 14), ylim = c(-14, 14), zlim = c(-14, 14), col = "pink",type = "s", size = 2, xlab = "EIX X", ylab = "EIX Y", zlab = "EIX Z", main="CENTROIDES NUVOLS DE PUNTS")
+plot3d(centroid_Hospi[1],centroid_Hospi[2],centroid_Hospi[3], xlim = c(-14, 14), ylim = c(-14, 14), zlim = c(-14, 14), col = "brown",type = "s", size = 2, xlab = "EIX X", ylab = "EIX Y", zlab = "EIX Z", main="CENTROIDES NUVOLS DE PUNTS")
+plot3d(centroid_PeudelaCreu[1],centroid_PeudelaCreu[2],centroid_PeudelaCreu[3], xlim = c(-14, 14), ylim = c(-14, 14), zlim = c(-14, 14), col = "lightgreen",type = "s", size = 2, xlab = "EIX X", ylab = "EIX Y", zlab = "EIX Z", main="CENTROIDES NUVOLS DE PUNTS")
+plot3d(centroid_SantBoi[1],centroid_SantBoi[2],centroid_SantBoi[3], xlim = c(-14, 14), ylim = c(-14, 14), zlim = c(-14, 14), col = "cyan",type = "s", size = 2, xlab = "EIX X", ylab = "EIX Y", zlab = "EIX Z", main="CENTROIDES NUVOLS DE PUNTS")
+plot3d(centroid_Carretes[1],centroid_Carretes[2],centroid_Carretes[3], xlim = c(-14, 14), ylim = c(-14, 14), zlim = c(-14, 14), col = "lightblue",type = "s", size = 2, xlab = "EIX X", ylab = "EIX Y", zlab = "EIX Z", main="CENTROIDES NUVOLS DE PUNTS")
+
+shade3d(ellipsoid, col = "blue", alpha = 0.5)
+
+legend3d("right", legend = c("Parellada", "Pompeu","Junta","Erasme","Manso","Montigalà","Nil","Pitàgores","Hospi","Peu de la Creu","Sant Boi","Carretes"), col = c("purple", "yellow","darkblue","black","pink","red","orange","darkgreen","brown","lightgreen","cyan","lightblue"), pch = 16)
+
 # Plot PCA Analysis data
 plot3d(PCA_x, PCA_y, PCA_z, col = "purple", 
        type = "s", size = 0.5, xlab = "PC1", ylab = "PC2", zlab = "PC3", main="3D Scatter Plot",xlim = c(-25, 5), ylim = c(-10, 8),zlim = c(-20,10))
@@ -216,7 +247,7 @@ fviz_pca_biplot(pca2d, col.var = "contrib") # Biplot
 cor_matrix <- cor(scaled_data)
 corrplot(cor_matrix, method = "color") # Correlation variables matrix
 
-# Interesting data about 3D PCA model and graphs abaout variance and standard deviation of the different variables
+# Interesting data about 3D PCA model and graphs about variance and standard deviation of the different variables
 summary(pca3d)
 
 eig.val <- get_eigenvalue(pca3d)
@@ -323,3 +354,70 @@ print(volume_Hospi)
 print(volume_PeudelaCreu)
 print(volume_SantBoi)
 print(volume_Carretes)
+
+# Standard deviation about energy
+consum_Pompeu <- Pompeu$Consumo_Energetico
+column <- as.numeric(consum_Pompeu)
+sd_Pompeu <- sd(column)
+mean(column)
+print(sd_Pompeu)
+
+consum_Junta <- Junta$Consumo_Energetico
+column <- as.numeric(consum_Junta)
+sd_Junta <- sd(column)
+mean(column)
+print(sd_Junta)
+
+consum_Erasme <- Erasme$Consumo_Energetico
+column <- as.numeric(consum_Erasme)
+sd_Erasme <- sd(column)
+mean(column)
+print(sd_Erasme)
+
+consum_Manso <- Manso$Consumo_Energetico
+column <- as.numeric(consum_Manso)
+sd_Manso <- sd(column)
+mean(column)
+print(sd_Manso)
+
+consum_Montigala <- Montigala$Consumo_Energetico
+column <- as.numeric(consum_Montigala)
+sd_Montigala <- sd(column)
+mean(column)
+print(sd_Montigala)
+
+consum_Nil <- Nil$Consumo_Energetico
+column <- as.numeric(consum_Nil)
+sd_Nil <- sd(column)
+mean(column)
+print(sd_Nil)
+
+consum_Pitagoras <- Pitagoras$Consumo_Energetico
+column <- as.numeric(consum_Pitagoras)
+sd_Pitagoras <- sd(column)
+mean(column)
+print(sd_Pitagoras)
+
+consum_Hospi <- Hospi$Consumo_Energetico
+column <- as.numeric(consum_Hospi)
+sd_Hospi <- sd(column)
+mean(column)
+print(sd_Hospi)
+
+consum_PeudelaCreu <- PeudelaCreu$Consumo_Energetico
+column <- as.numeric(consum_PeudelaCreu)
+sd_PeudelaCreu <- sd(column)
+mean(column)
+print(sd_PeudelaCreu)
+
+consum_SantBoi <- SantBoi$Consumo_Energetico
+column <- as.numeric(consum_SantBoi)
+sd_SantBoi <- sd(column)
+mean(column)
+print(sd_SantBoi)
+
+consum_Carretes <- Carretes$Consumo_Energetico
+column <- as.numeric(consum_Carretes)
+sd_Carretes <- sd(column)
+mean(column)
+print(sd_Carretes)
